@@ -1,0 +1,25 @@
+version: 1.0
+runtime: nodejs22
+build:
+  commands:
+    pre-build:
+      - echo -n 'Running pre-build commands. Node.js version is ' > pre-build.txt
+      - node -v >> pre-build.txt
+    build:
+      - echo -n 'Running build commands. Node.js version is ' > build.txt
+      - node -v >> build.txt
+      - npm install
+    post-build:
+      - echo -n 'Running post-build commands. Node.js version is ' > post-build.txt
+      - node -v >> post-build.txt
+  env:
+    - name: FOO
+      value: "bar"
+run:
+  command: node server.js
+  pre-run:
+      - echo -n 'Running pre-run commands. Node.js version is ' > pre-run.txt
+      - node -v >> pre-run.txt
+  network: 
+    port: 8000
+    env: PORT
